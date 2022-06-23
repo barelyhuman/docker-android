@@ -44,6 +44,13 @@ RUN apt update -qq; \
     make install; \
     cd ..; \
     ruby-install "$INSTALL_RUBY_VERSION" ;\
+    
+    # fallback ruby install for most react-native projects
+    ruby-install ruby-2.7.5 ;\
+
+    # needed default gems 
+    chruby 2.7.5; gem install bundler; bundler install fastlane;\
+
     rm -rf chruby-0.3.9 chruby-0.3.9.tar.gz ruby-install-0.8.3 ruby-install-0.8.3.tar.gz; 
 
     
