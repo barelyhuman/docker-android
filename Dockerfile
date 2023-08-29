@@ -6,6 +6,8 @@ ARG INSTALL_RUBY_VERSION=3.0.0
 
 COPY ./entrypoint.sh ./entrypoint.sh
 
+RUN chmod +x ./entrypoint.sh
+
 SHELL ["/bin/bash", "-c"]
     
 RUN apt update -qq; apt install -y git curl autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
