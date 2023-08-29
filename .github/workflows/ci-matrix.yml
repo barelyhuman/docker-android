@@ -11,7 +11,7 @@ jobs:
             { docker: "v11.0", android: "34" },
             { docker: "6.0", android: "31" },
             { docker: "4", android: "30" },
-            { docker: "8", android: "32" },
+            { docker: "8", android: "33" },
           ]
         ruby: ["2.7.4", "3.0.0"]
     name: Buid and push Docker image to GitHub Container registry
