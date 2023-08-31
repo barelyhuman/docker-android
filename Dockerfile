@@ -24,7 +24,7 @@ RUN savedAptMark="$(apt-mark showmanual)"; apt-get update; apt-get install -y --
  ; wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz"\
  ; echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum --check --strict\
  ; mkdir -p /usr/src/ruby\
- ; tar -xJf ruby.tar.xz -C /usr/src/ruby --strip-components=1
+ ; tar -xJf ruby.tar.xz -C /usr/src/ruby --strip-components=1 \
  ; rm ruby.tar.xz; cd /usr/src/ruby; { echo '#define ENABLE_PATH_CHECK 0'; echo; cat file.c; } > file.c.new; mv file.c.new file.c; autoconf; gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; ./configure --build="$gnuArch" --disable-install-doc --enable-shared ; make -j "$(nproc)"; make install; apt-mark auto '.*' > /dev/null\
  ; apt-mark manual $savedAptMark > /dev/null\
  ; find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec ldd '{}' ';' | awk '/=>/ { print $(NF-1) }' | sort -u | xargs -r dpkg-query --search | cut -d: -f1 | sort -u | xargs -r apt-mark manual ; apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; cd /; rm -r /usr/src/ruby; ! dpkg -l | grep -i ruby; [ "$(command -v ruby)" = '/usr/local/bin/ruby' ]; ruby --version; gem --version; bundle --version
