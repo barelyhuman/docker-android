@@ -13,7 +13,11 @@ jobs:
             { docker: "4", android: "30" },
             { docker: "8", android: "33" },
           ]
-        ruby: ["2.7.4", "3.0.0"]
+        ruby:
+          [
+            { major: "2.7", version: "2.7.5" },
+            { major: "3.0", version: "3.0.0" },
+          ]
     name: Buid and push Docker image to GitHub Container registry
     runs-on: ubuntu-latest
     permissions:
@@ -24,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Meta
-        run: echo "::set-output name=dtag::ghcr.io/barelyhuman/docker-android:android-${{matrix.version.android}}-ruby-${{matrix.ruby}}"
+        run: echo "::set-output name=dtag::ghcr.io/barelyhuman/docker-android:android-${{matrix.version.android}}-ruby-${{matrix.ruby.version}}"
         id: meta
 
       - name: Login to GitHub Container registry
@@ -50,4 +54,6 @@ jobs:
           tags: ${{ steps.meta.outputs.dtag }}
           build-args: |
             BASE_VERSION=${{matrix.version.docker}}
+            RUBY_MAJOR=${{matrix.ruby.major}}
+            RUBY_VERSION=${{matrix.ruby.version}}
             ENVIRONMENT=production
