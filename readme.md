@@ -1,11 +1,6 @@
 # docker-android 
 
-simple react-native android docker image with the following stuff 
-
-- React Native + Android
-- Fastlane (ruby 2.7.5) (you'll have to reinstall this gem if you change the ruby version)
-- `chruby` + `ruby-install`
-- fallback installs of `ruby-2.7.5` 
+React Native Android Images with prebuild android and ruby binaries.
 
 
 ## Usage 
@@ -25,23 +20,8 @@ docker pull ghcr.io/barelyhuman/docker-android:latest
 docker pull ghcr.io/barelyhuman/docker-android:20220621
 ```
 
-### Accepted Args 
-Everything from the [react-native-community/docker-android](https://github.com/react-native-community/docker-android) image is passed down to the base image 
-and the additional arg you can pass are listed below
+## Instructions
+It just works as you'd expect it to 
 
-#### `INSTALL_RUBY_VERSION`
-<small>default value: `3.0.0`</small>
-
-This arg will add another ruby version into the image, the base image comes with `2.7.5` and the above default value
-
-`2.7.5` => Used by react-native by default 
-`3.0.0` => Personal preferred version
-
-### Usage in CI
-
-Due to the nature of how CI's and specifically ubuntu images handle `exec` , you'll have to source this before running `chruby` in your CI scripts
-
-```sh
-source /usr/local/share/chruby/chruby.sh
-chruby 3.0.0
-```
+## LICENSE 
+[MIT](/LICENSE)
